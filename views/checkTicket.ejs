@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=no">
+    <title>我的票夹</title>
+
+    <link href="css/style.min.css" type="text/css" rel="stylesheet">
+    <link href="css/checkTicket.css" type="text/css" rel="stylesheet">
+    <script src="js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+    <div class="topMenu">
+        <div id="eTicket" class="active">我的电子票</div>
+        <div id="mapGuide" style="display:none">座位引导</div>
+    </div>
+
+    <!--电子票部分-->
+    <section class="cz_order" style= "padding-bottom: 0">
+        <dl>
+            <dt>
+              <span id="ticket_order">票号：</span>
+              <font></font>
+            </dt>
+            <dd>
+                <div>
+                    <h2 style="font-size:1.8em">
+                        <span id="ticket_title">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <font style="font-size:0.8em; margin-top:0.5em" id="ticket_status">等待选区</font>
+                    </h2>
+                </div>
+                <div id="blockNotify" style="display:none"></div>
+                <p class="text" id="ticket_place">场馆：</p>
+                <p class="text" id="ticket_time">日期：</p>
+                <p class="text" id="ticket_seat" style="display:none">座位：</p>
+                <p class="text" id="ticket_cancel">退票方式：回复 "退票"+"新年音乐会"</p>
+
+                <br>
+                <b></b>
+            </dd>
+
+            <a></a>
+            <dd>
+                <div id="ticketPayInfo" style="display:none">
+                    <br>
+                    <p id="ticketPrice" class="text"> </p>
+                    <p class="text"> 换票方式： 凭二维码支付并换取纸质票</p>
+                    <p id="bookHall" class="text"> </p>
+                </div>
+                <p id="ticket_ddl" class="text" >选票截止时间</p>
+                <div id="qrcodeWrap">
+                    <div id="qrcode"></div>
+                    <div id="noteMessage" style="display:none;">
+                        <a id="noteLink" class="seatButton" style="background:none;color:#000">
+                            <div class="noteText">请选座位</div>
+                        </a>
+                    </div>
+                </div>
+
+                <b></b>
+            </dd>
+        </dl>
+    </section>
+
+    <div id="alertFrame">
+        <div id="alertInfo">
+        </div>
+    </div>
+
+    <!--座位引导综体部分-->
+    <section id="guideMap-zt" style="display:none">
+        <div id="front">
+            <div>舞&nbsp;&nbsp;&nbsp;台</div>
+        </div>
+        <div id = "Zongti">
+            <div id = "block_A">
+                <div id = "area_A1"></div>
+                <div id = "area_A2"></div>
+                <div id = "area_A3"></div>
+                <div id = "area_A4"></div>
+                <div id = "area_A5"></div>
+                <a>A</a>
+            </div>
+            <div id = "block_B">
+                <div id = "area_B1"></div>
+                <div id = "area_B2"></div>
+                <div id = "area_B3"></div>
+                <a>B</a>
+            </div>
+            <div id = "block_C">
+                <div id = "area_C1"></div>
+                <div id = "area_C2"></div>
+                <div id = "area_C3"></div>
+                <a>C</a>
+            </div>
+            <div id = "Friend_block">校友就座区</div>
+            <div id = "block_D">
+                <div id = "area_D1"></div>
+                <div id = "area_D2"></div>
+                <div id = "area_D3"></div>
+                <div id = "area_D4"></div>
+                <a>D</a>
+            </div>
+            <div id = "block_E">
+                <div id = "area_E1"></div>
+                <div id = "area_E2"></div>
+                <div id = "area_E3"></div>
+                <a>E</a>
+            </div>
+        </div>
+    </section>
+
+    <!--座位引导新清华学堂部分-->
+    <section id="guideMap-xq" style="display:none">
+    </section>
+
+    <!--选座链接部分-->
+    <section class="info" id="seatEntrance" style="display:none;">
+        <div class="btn" style="height:58px">
+          <a class="seatButton" href=""><i class="icon-cart"></i>进入选座</a>
+        </div>
+    </section>
+    <!--为button留出空间-->
+    <div id="needButton" style="height:30px; display:none"></div>
+</body>
+
+<script>
+    //测试用
+    var ticket = new Object();
+    ticket.id = "<%= tid %>";
+    ticket.title="<%= act_name %>";
+    ticket.name = "<%= act_key %>";      //退票的活动代称
+    ticket.place = "<%= act_place %>";
+    ticket.time = "<%= act_begintime %>";
+    ticket.seat = "<%= seat %>";              //ticket.seat = "A区";
+    ticket.qrcode_img="<%= act_photo %>";
+    ticket.status = <%= ticket_status %>;              //status=1, "等待选座"， status=2, "等待检票", status=3, "已检票"
+    ticket.seatddl = "<%= act_book_end %>";
+    ticket.needseat = <%= act_need_seat %>;
+    var netWorkType;
+
+    ticket.price = <%= ticket_price %>;
+    ticket.hall = "清华学堂售票窗口";
+    ticket.isPaid = <%= has_paid %>;
+
+</script>
+<script src="js/netWorkType.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/createqrcode.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/qrcode.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/checkTicket.js" type="text/javascript" charset="utf-8"></script>
+</html>
